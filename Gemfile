@@ -12,5 +12,4 @@ gem 'coveralls', require: false
 
 group :metrics do
   gem 'flay'
-  gem 'simplecov'
 end
