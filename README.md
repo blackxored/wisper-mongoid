@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/wisper-mongoid.png)](http://badge.fury.io/rb/wisper-mongoid)
 [![Build Status](https://travis-ci.org/blackxored/wisper-mongoid.png?branch=master)](https://travis-ci.org/blackxored/wisper-mongoid)
-[![Coverage Status](https://coveralls.io/repos/blackxored/wisper-mongoid/badge.png?branch=master)](https://coveralls.io/r/blackxored/wisper-mongoid)
+[![Coverage Status](https://coveralls.io/repos/blackxored/wisper-mongoid/badge.svg)](https://coveralls.io/r/blackxored/wisper-mongoid)
 [![Dependency Status](https://gemnasium.com/blackxored/wisper-mongoid.png)](https://gemnasium.com/blackxored/wisper-mongoid)
 [![Code Climate](https://codeclimate.com/github/blackxored/wisper-mongoid.png)](https://codeclimate.com/github/blackxored/wisper-mongoid)
 
