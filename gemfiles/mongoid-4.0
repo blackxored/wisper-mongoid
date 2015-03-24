@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+
+gem 'rubysl', '~> 2.0', :platforms => :rbx
+
+gem 'rspec'
+
+gem 'mongoid', '~> 4.0'
+
+gemspec :path => '../'
