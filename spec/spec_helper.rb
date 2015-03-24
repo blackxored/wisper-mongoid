@@ -1,10 +1,10 @@
 begin
   require 'coveralls'
+  require 'pry'
   Coveralls.wear!
 rescue LoadError
 end
 
-require 'pry'
 require 'wisper'
 require 'mongoid'
 
