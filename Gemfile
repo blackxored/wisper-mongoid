@@ -10,6 +10,7 @@ gem 'rspec'
 gem 'pry'
 
 group :metrics do
+  gem 'coveralls', require: false
   gem 'flay'
   gem 'simplecov'
 end
