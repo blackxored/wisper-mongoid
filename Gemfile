@@ -8,9 +8,9 @@ gem 'bundler', '~> 1.5'
 gem 'rake'
 gem 'rspec'
 gem 'pry'
+gem 'coveralls', require: false
 
 group :metrics do
-  gem 'coveralls', require: false
   gem 'flay'
   gem 'simplecov'
 end
