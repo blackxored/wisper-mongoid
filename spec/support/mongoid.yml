@@ -3,4 +3,4 @@ test:
     default:
       database: wisper_test
       hosts:
-        - localhost:27017
+        - dockerhost:27017

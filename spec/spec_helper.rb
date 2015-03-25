@@ -1,12 +1,19 @@
 begin
-  require 'coveralls'
   require 'pry'
-  Coveralls.wear!
 rescue LoadError
 end
 
-require 'wisper'
+require 'simplecov'
+require 'coveralls'
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
+SimpleCov.start
+
 require 'mongoid'
+require 'wisper'
 
 puts "Using Mongoid #{Mongoid::VERSION}"
 
