@@ -12,19 +12,6 @@ module Wisper
         after_destroy    :after_destroy_broadcast, on: :destroy
       end
 
-      def commit(_attributes = nil)
-        warn "[DEPRECATED] use save, create, update_attributes as usual"
-        assign_attributes(_attributes) if _attributes.present?
-        save
-      end
-
-      module ClassMethods
-        def commit(_attributes = nil)
-          warn "[DEPRECATED] use save, create, update_attributes as usual"
-          new(_attributes).save
-        end
-      end
-
       private
 
       def after_validation_broadcast
