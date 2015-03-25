@@ -1,5 +1,4 @@
 describe Wisper::Mongoid::Publisher do
-
   it 'includes Wisper::Publisher' do
     klass = Class.new do
       include Mongoid::Document

@@ -1,5 +1,5 @@
-require "wisper/mongoid/version"
-require "wisper/mongoid/publisher"
+require 'wisper/mongoid/version'
+require 'wisper/mongoid/publisher'
 
 module Wisper
   def self.model
@@ -9,7 +9,7 @@ module Wisper
   module Mongoid
     def self.extend_all
       # TODO: Include model on all mongoid documents
-      raise NotImplementedError
+      fail NotImplementedError
     end
   end
 end

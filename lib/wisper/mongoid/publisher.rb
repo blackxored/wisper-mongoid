@@ -3,13 +3,12 @@ module Wisper
     module Publisher
       extend ActiveSupport::Concern
       included do
-
         include Wisper::Publisher
 
         after_validation :after_validation_broadcast
-        after_create     :after_create_broadcast,  on: :create
-        after_update     :after_update_broadcast,  on: :update
-        after_destroy    :after_destroy_broadcast, on: :destroy
+        after_create :after_create_broadcast,  on: :create
+        after_update :after_update_broadcast,  on: :update
+        after_destroy :after_destroy_broadcast, on: :destroy
       end
 
       private

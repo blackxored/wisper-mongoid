@@ -3,7 +3,7 @@ class Meeting
   include Mongoid::Timestamps
   include Wisper.model
 
-  field :title, default: "My Meeting"
+  field :title, default: 'My Meeting'
   field :location
 
   validates :title, presence: true

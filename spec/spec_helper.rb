@@ -10,7 +10,7 @@ require 'mongoid'
 
 puts "Using Mongoid #{Mongoid::VERSION}"
 
-Mongoid.load!("spec/support/mongoid.yml", :test)
+Mongoid.load!('spec/support/mongoid.yml', :test)
 
 require 'wisper/mongoid'
 require 'support/models'
