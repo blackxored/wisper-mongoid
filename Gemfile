@@ -8,8 +8,6 @@ gem 'bundler', '~> 1.5'
 gem 'rake'
 gem 'rspec'
 gem 'pry'
-gem 'coveralls', require: false
-gem 'simplecov', require: false
 
 group :metrics do
   gem 'flay'
