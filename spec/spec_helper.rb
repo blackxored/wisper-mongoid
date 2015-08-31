@@ -39,6 +39,10 @@ RSpec.configure do |config|
 
   Kernel.srand config.seed
 
+  config.before(:each) do |example|
+    Mongoid.purge! # Clean up collections before each spec
+  end
+
   config.expect_with :rspec do |expectations|
     expectations.syntax = :expect
   end

@@ -4,8 +4,10 @@ describe 'Mongoid' do
 
   before { Wisper::GlobalListeners.clear }
 
-  it '.model returns Mongoid module' do
-    expect(Wisper.model).to eq(Wisper::Mongoid::Publisher)
+  describe '.model' do
+    it 'returns Mongoid module' do
+      expect(Wisper.model).to eq(Wisper::Mongoid::Publisher)
+    end
   end
 
   describe 'when creating' do
@@ -27,11 +29,7 @@ describe 'Mongoid' do
   end
 
   describe 'when updating' do
-    before do
-      model_class.create!
-    end
-
-    let(:model) { model_class.first }
+    let(:model) { model_class.create }
 
     context 'and model is valid' do
       it 'publishes update_<model_name>_successful event to listener' do
@@ -61,9 +59,7 @@ describe 'Mongoid' do
   end
 
   describe 'update' do
-    before { model_class.create! }
-
-    let(:model) { model_class.first }
+    let(:model) { model_class.create }
 
     it 'publishes an after_update event to listener' do
       expect(listener).to receive(:after_update).with(instance_of(model_class))
@@ -73,14 +69,22 @@ describe 'Mongoid' do
   end
 
   describe 'destroy' do
-    before { model_class.create! }
-
-    let(:model) { model_class.first }
+    let(:model) { model_class.new }
 
     it 'publishes an after_destroy event to listener' do
       expect(listener).to receive(:after_destroy).with(instance_of(model_class))
       model_class.subscribe(listener)
       model.destroy
+    end
+  end
+
+  describe '#without_broadcasting' do
+    before { model_class.subscribe(listener) }
+    let(:model) { model_class.new }
+
+    it 'by does not broadcast the event' do
+      expect(listener).not_to receive(:after_save)
+      model.without_broadcasting { |m| m.save }
     end
   end
 end
