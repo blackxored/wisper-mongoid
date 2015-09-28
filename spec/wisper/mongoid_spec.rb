@@ -1,6 +1,10 @@
 describe 'Mongoid' do
   let(:listener)    { double('Listener') }
   let(:model_class) { Meeting }
+  let(:id)          { "1234" }
+  let(:payload) do
+    { id: id }
+  end
 
   before { Wisper::GlobalListeners.clear }
 
@@ -11,68 +15,47 @@ describe 'Mongoid' do
   end
 
   describe 'when creating' do
-    context 'and model is valid' do
-      it 'publishes create_<model_name>_successful event to listener' do
-        expect(listener).to receive(:create_meeting_successful).with(instance_of(model_class))
-        model_class.subscribe(listener)
-        model_class.create
-      end
-    end
-
-    context 'and model is not valid' do
-      it 'publishes create_<model_name>_failed event to listener' do
-        expect(listener).to receive(:create_meeting_failed).with(instance_of(model_class))
-        model_class.subscribe(listener)
-        model_class.create(title: nil)
-      end
+    it 'publishes <model_name>_created event to listener' do
+      expect(listener).to receive(:meeting_created).with(payload)
+      model_class.subscribe(listener)
+      model_class.create(id: id)
     end
   end
 
   describe 'when updating' do
-    let(:model) { model_class.create }
+    let(:model) { model_class.create(id: id) }
 
-    context 'and model is valid' do
-      it 'publishes update_<model_name>_successful event to listener' do
-        expect(listener).to receive(:update_meeting_successful).with(instance_of(model_class))
-        model_class.subscribe(listener)
-        model.title = 'foo'
-        model.save
-      end
-    end
-
-    context 'and model is not valid' do
-      it 'publishes update_<model_name>_failed event to listener' do
-        expect(listener).to receive(:update_meeting_failed).with(instance_of(model_class))
-        model_class.subscribe(listener)
-        model.title = nil
-        model.save
-      end
+    it 'publishes <model_name>_updated event to listener' do
+      expect(listener).to receive(:meeting_updated).with(payload)
+      model_class.subscribe(listener)
+      model.title = 'foo'
+      model.save
     end
   end
 
   describe 'create' do
     it 'publishes an after_create event to listener' do
-      expect(listener).to receive(:after_create).with(instance_of(model_class))
+      expect(listener).to receive(:after_create).with(payload)
       model_class.subscribe(listener)
-      model_class.create
+      model_class.create(id: id)
     end
   end
 
   describe 'update' do
-    let(:model) { model_class.create }
+    let(:model) { model_class.create(id: id) }
 
     it 'publishes an after_update event to listener' do
-      expect(listener).to receive(:after_update).with(instance_of(model_class))
+      expect(listener).to receive(:after_update).with(payload)
       model.subscribe(listener)
       model.update_attributes(title: 'new title')
     end
   end
 
   describe 'destroy' do
-    let(:model) { model_class.new }
+    let(:model) { model_class.new(id: id) }
 
     it 'publishes an after_destroy event to listener' do
-      expect(listener).to receive(:after_destroy).with(instance_of(model_class))
+      expect(listener).to receive(:after_destroy).with(payload)
       model_class.subscribe(listener)
       model.destroy
     end

@@ -5,7 +5,6 @@ module Wisper
       included do
         include Wisper::Publisher
 
-        after_validation :after_validation_broadcast
         after_create :after_create_broadcast
         after_save :after_save_broadcast
         after_update :after_update_broadcast
@@ -20,37 +19,36 @@ module Wisper
 
       private
 
-      def broadcast_event(event_name, payload)
+      def broadcast_event(event_name)
         if (!defined?(@broadcast) || @broadcast)
           broadcast(event_name, payload)
         end
       end
 
-      def after_validation_broadcast
-        action = new_record? ? 'create' : 'update'
-        if !errors.empty?
-          broadcast_event("#{action}_#{broadcast_model_name_key}_failed", self)
-        end
+      def payload
+        {
+          id: id.to_s
+        }
       end
 
       def after_create_broadcast
-        broadcast_event(:after_create, self)
-        broadcast_event("create_#{broadcast_model_name_key}_successful", self)
+        broadcast_event(:after_create)
+        broadcast_event("#{broadcast_model_name_key}_created")
       end
 
       def after_save_broadcast
-        broadcast_event(:after_save, self)
-        broadcast_event("save_#{broadcast_model_name_key}_successful", self)
+        broadcast_event(:after_save)
+        broadcast_event("#{broadcast_model_name_key}_saved")
       end
 
       def after_update_broadcast
-        broadcast_event(:after_update, self)
-        broadcast_event("update_#{broadcast_model_name_key}_successful", self)
+        broadcast_event(:after_update)
+        broadcast_event("#{broadcast_model_name_key}_updated")
       end
 
       def after_destroy_broadcast
-        broadcast_event(:after_destroy, self)
-        broadcast_event("destroy_#{broadcast_model_name_key}_successful", self)
+        broadcast_event(:after_destroy)
+        broadcast_event("#{broadcast_model_name_key}_destroyed")
       end
 
       def broadcast_model_name_key
