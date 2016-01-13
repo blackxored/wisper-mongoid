@@ -80,6 +80,17 @@ def create_meeting_successful(meeting)
 end
 ```
 
+### Suspending events listening
+
+You can temporarily prevent wisper to react to mongoid callbacks.
+```ruby
+Wisper.skip_mongoid_listener do
+	# ...
+	model.save!
+	# mongoid wisper callback won't be triggered
+end
+``` 
+
 ## Example
 
 ### Controller
