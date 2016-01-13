@@ -82,7 +82,7 @@ end
 
 ### Suspending events listening
 
-You can temporary prevent wisper to react to mongoid callbacks.
+You can temporarily prevent wisper to react to mongoid callbacks.
 ```ruby
 Wisper.skip_mongoid_listener do
 	# ...
